@@ -1,5 +1,5 @@
-import {cart} from '../data/cart.js'
-import {products} from '../data/products.js'
+import { cart, addToCart } from '../data/cart.js'
+import { products } from '../data/products.js'
 //prices are in paise (1 INR = 100 paise)
 
 let productsHTML = '';
@@ -59,34 +59,23 @@ const productsGrid = document.querySelector('.js-product-grid');
 productsGrid.innerHTML = productsHTML;
 
 const addToCartButtons = document.querySelectorAll('.js-add-to-cart');
+
+function updateCartQuantity() {
+  let cartQuantity = 0;
+
+  cart.forEach((cartItem) => {
+    cartQuantity += cartItem.quantity;
+  });
+
+  document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
+}
+
 addToCartButtons.forEach((button) => {
   button.addEventListener('click', () => {
     const productId = button.dataset.productId;
 
-    let matchingItem;
-
-    cart.forEach((item) => {
-      if (item.productId === productId) {
-        matchingItem = item;
-      }
-    });
-
-    if (matchingItem) {
-      matchingItem.quantity++;
-    } else {
-      cart.push({
-        productId: productId,
-        quantity: 1
-      });
-    }
-
-    let cartQuantity = 0 ;
-    
-    cart.forEach((item) => {
-      cartQuantity += item.quantity;
-    });
-
-    document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
+    addToCart(productId);
+    updateCartQuantity();
 
   });
 });
