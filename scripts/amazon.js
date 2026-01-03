@@ -1,3 +1,4 @@
+import {cart} from '../data/cart.js'
 //prices are in paise (1 INR = 100 paise)
 
 let productsHTML = '';
