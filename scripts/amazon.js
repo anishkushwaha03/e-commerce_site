@@ -1,4 +1,4 @@
-import { cart, addToCart } from '../data/cart.js' ;
+import { cart, addToCart, updateCartQuantity } from '../data/cart.js' ;
 import { products } from '../data/products.js' ;
 //prices are in paise (1 INR = 100 paise)
 
@@ -60,15 +60,7 @@ productsGrid.innerHTML = productsHTML;
 
 const addToCartButtons = document.querySelectorAll('.js-add-to-cart');
 
-function updateCartQuantity() {
-  let cartQuantity = 0;
-
-  cart.forEach((cartItem) => {
-    cartQuantity += cartItem.quantity;
-  });
-
-  document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
-}
+updateCartQuantity();
 
 addToCartButtons.forEach((button) => {
   button.addEventListener('click', () => {
